@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Database\Seeders\UsersTableSeeder;
+use Modules\SPP\Database\Seeders\AddRoleBendaharaSeederTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,7 +14,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // user seeder
-        $this->call(UsersTableSeeder::class);
+        $this->call([
+           RoleSeeder::class,
+           AddRoleSeeder::class,
+           UserSeeder::class,
+           AddRoleBendaharaSeederTableSeeder::class,
+           IndoBankSeeder::class,
+           SettingSeeder::class
+        ]);
+
     }
 }

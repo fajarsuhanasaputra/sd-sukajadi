@@ -1,24 +1,8 @@
 <?php
 
+use App\Http\Controllers\Backend\SettingController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BlogController;
-use App\Http\Controllers\PpdbController;
-use App\Http\Controllers\RoomController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\AlumniController;
-use App\Http\Controllers\SavingController;
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\TeacherController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\InmutationController;
-use App\Http\Controllers\BlogGalleryController;
-use App\Http\Controllers\LandingPageController;
-use App\Http\Controllers\OutmutationController;
-use App\Http\Controllers\AdmindashboardController;
-use App\Http\Controllers\PPDBGalleryController;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,47 +14,94 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
-Route::get('/', [LandingPageController::class, 'index'])->name('index');
-Route::get('/about', [LandingPageController::class, 'about'])->name('about');
-Route::get('/infoPpdb', [LandingPageController::class, 'infoPpdb'])->name('infoPpdb');
-Route::get('/siswa', [LandingPageController::class, 'siswa'])->name('siswa');
+// ======= FRONTEND ======= \\
 
-Route::get('/blog', [LandingPageController::class, 'blog'])->name('blog');
-Route::get('/blog/details/{slug}' , [LandingPageController::class, 'details'])->name('details');
+Route::get('/','Frontend\IndexController@index');
 
-Route::middleware(['auth:sanctum', 'verified'])->name('dashboard.')->prefix('dashboard')->group(function (){
-    Route::get('/', [DashboardController::class, 'index'])->name('index');
-    Route::resource('ppdb', PpdbController::class);
-    Route::resource('ppdb.pgallery', PPDBGalleryController::class)->shallow()->only([
-        'index', 'create', 'store', 'destroy'
-    ]);
-    Route::resource('payment', PaymentController::class);
-    Route::resource('saving', SavingController::class);
-    Route::get('/cetak_pdf', [SavingController::class, 'cetak_pdf'])->name('cetak_pdf');
-    Route::get('/cetak_pdfPembayaran', [PaymentController::class, 'cetak_pdfPembayaran'])->name('cetak_pdfPembayaran');
+    ///// MENU \\\\\
+        //// PROFILE SEKOLAH \\\\
+        Route::get('profile-sekolah',[App\Http\Controllers\Frontend\IndexController::class,'profileSekolah'])->name('profile.sekolah');
 
-    Route::middleware(['admin'])->group(function(){
-        Route::resource('admindashboard', AdmindashboardController::class);
-        Route::resource('student', StudentController::class);
-        Route::resource('room', RoomController::class);
-        Route::resource('alumni', AlumniController::class);
-        Route::resource('teacher', TeacherController::class);
-        Route::resource('inmutation', InmutationController::class);
-        Route::resource('outmutation', OutmutationController::class);
-       
+        //// VISI dan MISI
+        Route::get('visi-dan-misi',[App\Http\Controllers\Frontend\IndexController::class,'visimisi'])->name('visimisi.sekolah');
 
-        Route::resource('blog', BlogController::class); 
-        Route::resource('blog.gallery', BlogGalleryController::class)->shallow()->only([
-            'index', 'create', 'store', 'destroy'
+        //// PROGRAM STUDI \\\\
+        Route::get('program/{slug}', [App\Http\Controllers\Frontend\MenuController::class, 'programStudi']);
+        //// PROGRAM STUDI \\\\
+        Route::get('kegiatan/{slug}', [App\Http\Controllers\Frontend\MenuController::class, 'kegiatan']);
+
+        /// BERITA \\\
+        Route::get('berita',[App\Http\Controllers\Frontend\IndexController::class,'berita'])->name('berita');
+        Route::get('berita/{slug}',[App\Http\Controllers\Frontend\IndexController::class,'detailBerita'])->name('detail.berita');
+
+        /// EVENT \\\
+        Route::get('event/{slug}',[App\Http\Controllers\Frontend\IndexController::class,'detailEvent'])->name('detail.event');
+        Route::get('event',[App\Http\Controllers\Frontend\IndexController::class,'events'])->name('event');
+
+Auth::routes(['register' => false]);
+
+
+// ======= BACKEND ======= \\
+Route::middleware('auth')->group(function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+     /// PROFILE \\\
+    Route::resource('profile-settings',Backend\ProfileController::class);
+    /// SETTINGS \\\
+      Route::prefix('settings')->group( function(){
+        // BANK
+        Route::get('/',[App\Http\Controllers\Backend\SettingController::class,'index'])->name('settings');
+        // TAMBAH BANK
+        Route::post('add-bank',[App\Http\Controllers\Backend\SettingController::class,'addBank'])->name('settings.add.bank');
+        // NOTIFICATIONS
+        Route::put('notifications/{id}',[SettingController::class,'notifications']);
+      });
+
+
+    /// CHANGE PASSWORD
+    Route::put('profile-settings/change-password/{id}',[App\Http\Controllers\Backend\ProfileController::class, 'changePassword'])->name('profile.change-password');
+
+    Route::prefix('/')->middleware('role:Admin')->group( function (){
+        ///// WEBSITE \\\\\
+        Route::resources([
+            /// PROFILE SEKOLAH \\
+            'backend-profile-sekolah'   => Backend\Website\ProfilSekolahController::class,
+            /// VISI & MISI \\\
+            'backend-visimisi'  => Backend\Website\VisidanMisiController::class,
+            //// PROGRAM STUDI \\\\
+            'program-studi' =>  Backend\Website\ProgramController::class,
+            /// KEGIATAN \\\
+            'backend-kegiatan' => Backend\Website\KegiatanController::class,
+            /// IMAGE SLIDER \\\
+            'backend-imageslider' => Backend\Website\ImageSliderController::class,
+            /// ABOUT \\\
+            'backend-about' => Backend\Website\AboutController::class,
+            /// VIDEO \\\
+            'backend-video' => Backend\Website\VideoController::class,
+            /// KATEGORI BERITA \\\
+            'backend-kategori-berita'   => Backend\Website\KategoriBeritaController::class,
+            /// BERITA \\\
+            'backend-berita' => Backend\Website\BeritaController::class,
+            /// EVENT \\\
+            'backend-event' => Backend\Website\EventsController::class,
+            /// FOOTER \\\
+            'backend-footer'    => Backend\Website\FooterController::class,
         ]);
 
-        Route::resource('user', UserController::class)->only([
-            'index', 'edit', 'update', 'destroy'
+        ///// PENGGUNA \\\\\
+        Route::resources([
+            /// PENGAJAR \\\
+            'backend-pengguna-pengajar' => Backend\Pengguna\PengajarController::class,
+            /// STAF \\\
+            'backend-pengguna-staf' => Backend\Pengguna\StafController::class,
+            /// MURID \\\
+            'backend-pengguna-murid' => Backend\Pengguna\MuridController::class,
+            /// PPDB \\\
+            'backend-pengguna-ppdb' => Backend\Pengguna\PPDBController::class,
+            /// PERPUSTAKAAN \\\
+            'backend-pengguna-perpus' => Backend\Pengguna\PerpusController::class,
+            /// BENDAHARA \\\
+            'backend-pengguna-bendahara'  => Backend\Pengguna\BendaharaController::class
         ]);
-
-        Route::get('/tabungan', [Savingcontroller::class, 'tabungan'])->name('tabungan');
-        Route::get('/pembayaran', [Paymentcontroller::class, 'pembayaran'])->name('pembayaran');
-        Route::get('/ppdbAdmin', [PpdbController::class, 'infoPpdbAdmin'])->name('infoPpdbAdmin');
-        Route::get('/ppdbAdminGallery', [PpdbGalleryController::class, 'infoPpdbAdminGallery'])->name('infoPpdbAdminGallery');
     });
 });
