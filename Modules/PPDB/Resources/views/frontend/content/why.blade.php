@@ -39,7 +39,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="faq-box-wrapper">
+                <!-- <div class="faq-box-wrapper">
                     <div class="faq-box-item panel panel-default">
                         <div class="panel-heading">
                             <div class="panel-title faq-box-title">
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <div class="faq-box-wrapper">
@@ -65,7 +65,7 @@
                             <div class="panel-title faq-box-title">
                                 <h3>
                                     <a aria-expanded="false" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
-                                        <span class="faq-box-count">4</span>Beasiswa Sekolah dan Kampus.
+                                        <span class="faq-box-count">3</span>Beasiswa Sekolah.
                                     </a>
                                 </h3>
                             </div>
@@ -77,7 +77,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="faq-box-wrapper">
+                <!-- <div class="faq-box-wrapper">
                     <div class="faq-box-item panel panel-default">
                         <div class="panel-heading">
                             <div class="panel-title faq-box-title">
@@ -94,14 +94,14 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="faq-box-wrapper">
                     <div class="faq-box-item panel panel-default">
                         <div class="panel-heading">
                             <div class="panel-title faq-box-title">
                                 <h3>
                                     <a aria-expanded="false" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
-                                        <span class="faq-box-count">6</span>Memiliki segudang prestasi.
+                                        <span class="faq-box-count">4</span>Memiliki segudang prestasi.
                                     </a>
                                 </h3>
                             </div>

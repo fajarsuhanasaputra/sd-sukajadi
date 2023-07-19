@@ -1,7 +1,7 @@
    
  <div class="container">
-        <h1 class="about-title">Program Studi</h1>
-        <p class="about-sub-title">Program Studi di SDN 3 SUKAJADI, Pilih Passion Kamu!</p>
+        <h1 class="about-title">Keunggulan SDN 3 SUKAJADI</h1>
+        <!-- /<p class="about-sub-title">Program Studi di SDN 3 SUKAJADI, Pilih Passion Kamu!</p> -->
     </div>
     <div class="container">
         <div class="row">
@@ -10,7 +10,7 @@
                     <div class="service-box-icon">
                         <a href="#"><i class="fa fa-book" aria-hidden="true"></i></a>
                     </div>
-                    <h3><a href="#">Teknik Komputer & Jaringan</a></h3>
+                    <h3><a href="#">Tersedia Beasiswa</a></h3>
                     
                 </div>
             </div>
@@ -19,7 +19,7 @@
                     <div class="service-box-icon">
                         <a href="#"><i class="fa fa-book" aria-hidden="true"></i></a>
                     </div>
-                    <h3><a href="#">Teknik Jaringan Akses Telekomunikasi</a></h3>
+                    <h3><a href="#">Fasilitas Nasional</a></h3>
                     
                 </div>
             </div>
@@ -28,7 +28,7 @@
                     <div class="service-box-icon">
                         <a href="#"><i class="fa fa-book" aria-hidden="true"></i></a>
                     </div>
-                    <h3><a href="#">Multimedia</a></h3>
+                    <h3><a href="#">Terakreditasi A</a></h3>
                    
                 </div>
             </div>

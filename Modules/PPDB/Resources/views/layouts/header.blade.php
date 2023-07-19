@@ -5,10 +5,10 @@
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-3">
                         <div class="logo-area">
-                            <a href="/ppdb"><img class="img-responsive" src="img/logo.png" alt="logo"></a>
+                            <a href="/ppdb"><img class="img-responsive" src="{{asset('Assets/Frontend/img/slider/mi.png')}}" alt="logo"></a>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-9">
+                    <!-- <div class="col-lg-6 col-md-6 col-sm-9">
                         <nav id="desktop-nav">
                             <ul>
                                 <li><a href="#">Program Studi</a></li>
@@ -17,7 +17,7 @@
                                 <li><a href="#">Biaya</a></li>
                             </ul>
                         </nav>
-                    </div>
+                    </div> -->
                     <div class="col-lg-4 col-md-4 hidden-sm">
                         <div class="apply-btn-area">
                             @auth
